@@ -1,0 +1,18 @@
+<form action="#" class="new-category">
+  <h1 mat-dialog-title>Добавить категорию</h1>
+  <div mat-dialog-content>
+    <p>Введите название</p>
+    <mat-form-field appearance="fill" [style.width.%]="100">
+      <mat-label>Введите название:</mat-label>
+      <input matInput [formControl]="title">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addCategory()"
+      mat-dialog-close="submit"
+    >Добавить</button>
+  </div>
+</form>
