@@ -33,7 +33,7 @@ export class TodoComponent {
 
   toggleCompleted() {
     this.todo.isCompleted = !this.todo.isCompleted;
-    const url = `https://khrabrov-oblako-front-2.herokuapp.com/${this.todo.category_id}/todo/${this.todo.id}`
+    const url = `https://khrabrov-oblako-2.herokuapp.com/${this.todo.category_id}/todo/${this.todo.id}`
     this.http.patch(url, {}).subscribe();
   }
 }
