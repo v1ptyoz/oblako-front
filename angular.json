@@ -74,7 +74,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "oblako-front:build:production"
+              "browserTarget": "oblako-front:build:production",
+              "proxyConfig": "./proxy.conf.json"
             },
             "development": {
               "browserTarget": "oblako-front:build:development"
