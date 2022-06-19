@@ -12,7 +12,7 @@ export class AppComponent {
   public categories!: ICategory[];
 
   constructor(private http: HttpClient) {
-    this.http.get<ICategory[]>("https://khrabrov-oblako-front-2.herokuapp.com/projects")
+    this.http.get<ICategory[]>("https://khrabrov-oblako-2.herokuapp.com/projects")
       .subscribe((response) => {
         this.categories = plainToClass(Category, response);
       });
