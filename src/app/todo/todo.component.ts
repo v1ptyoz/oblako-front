@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Category} from "../category/category.component";
+import {HttpClient} from "@angular/common/http";
 
 export interface ITodo {
+  id: string;
   text: string;
   category_id: number;
   isCompleted: boolean;
 }
 
 export class Todo implements ITodo {
+  // @ts-ignore
+  id: number;
   // @ts-ignore
   category_id: number;
   // @ts-ignore
@@ -22,14 +27,13 @@ export class Todo implements ITodo {
 })
 
 export class TodoComponent {
+  @Input() todo!: Todo;
 
-  constructor() { }
-
-  isCompleted: boolean = false;
-
+  constructor(private http: HttpClient) { }
 
   toggleCompleted() {
-    this.isCompleted = !this.isCompleted;
-    return this.isCompleted;
+    this.todo.isCompleted = !this.todo.isCompleted;
+    const url = `http://localhost:4200/projects/${this.todo.category_id}/todo/${this.todo.id}`
+    this.http.patch(url, {}).subscribe();
   }
 }

@@ -1,6 +1,14 @@
 {
   "/projects": {
-    "target": "http://localhost:3000",
-    "secure": false
+    "target": "https://khrabrov-oblako-2.herokuapp.com",
+    "secure": true
+  },
+  "/category": {
+    "target": "https://khrabrov-oblako-2.herokuapp.com",
+    "secure": true
+  },
+  "/todos": {
+    "target": "https://khrabrov-oblako-2.herokuapp.com",
+    "secure": true
   }
 }

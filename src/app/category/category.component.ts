@@ -1,20 +1,22 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {Todo} from "../todo/todo.component";
 import {Type} from "class-transformer";
 
 export interface ICategory {
+  id: number;
   title: string;
-  todos: [Todo]
+  todos: Todo[]
 }
 
 export class Category implements ICategory{
   // @ts-ignore
+  public id: number;
+  // @ts-ignore
   public title: string;
 
   @Type(() => Todo)
-  // @ts-ignore
-  public todos: [Todo];
+  public todos: Todo[] = [];
 }
 
 @Component({
@@ -23,9 +25,9 @@ export class Category implements ICategory{
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent {
-  @Input() category?: Category;
+  @Input() category!: Category;
 
   constructor() {
-    console.log(this.category)
   }
+
 }

@@ -1,9 +1,10 @@
+<ng-template [ngIf]="category.todos && category.todos.length > 0">
 <mat-card class="category">
-  <mat-card-title class="category__title">{{ 123 }}</mat-card-title>
+  <mat-card-title class="category__title">{{ category.title }}</mat-card-title>
   <mat-card-content>
-    <app-todo></app-todo>
-    <app-todo></app-todo>
-    <app-todo></app-todo>
-    <app-todo></app-todo>
+    <ng-template ngFor let-todo [ngForOf]="category.todos">
+      <app-todo [todo]="todo"></app-todo>
+    </ng-template>
   </mat-card-content>
 </mat-card>
+</ng-template>

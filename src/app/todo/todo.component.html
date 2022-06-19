@@ -1,6 +1,7 @@
 <div class="todo">
   <mat-checkbox
-    [class]="isCompleted ? 'todo__completed' : ''"
+    [class]="todo.isCompleted ? 'todo__completed' : ''"
     (change)="toggleCompleted()"
-  >Lorem ipsum</mat-checkbox>
+    [checked]="todo.isCompleted"
+  >{{ todo.text }}</mat-checkbox>
 </div>
