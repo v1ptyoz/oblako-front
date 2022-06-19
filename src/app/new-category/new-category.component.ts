@@ -16,7 +16,7 @@ export class NewCategoryComponent {
   constructor(private http: HttpClient, public addNewCategoryDialogRef:MatDialogRef<NewCategoryComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   addCategory() {
-    this.http.post<Category>("https://khrabrov-oblako-2.herokuapp.com/category", {title: this.title.value}).subscribe(category => {
+    this.http.post<Category>("https://khrabrov-oblako-front-2.herokuapp.com/category", {title: this.title.value}).subscribe(category => {
       this.data.categories.push(plainToClass(Category, category));
     })
   }

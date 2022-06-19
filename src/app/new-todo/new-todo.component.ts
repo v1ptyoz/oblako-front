@@ -31,7 +31,7 @@ export class NewTodoComponent {
   }
 
   addTodo() {
-    this.http.post<Todo>("https://khrabrov-oblako-2.herokuapp.com/todos", {text: this.text.value, category_id: this.category.value}).subscribe(todo => {
+    this.http.post<Todo>("https://khrabrov-oblako-front-2.herokuapp.com/todos", {text: this.text.value, category_id: this.category.value}).subscribe(todo => {
       this.data.categories.forEach(category => {
         if (category.id === todo.category_id) {
           category.todos.push(plainToClass(Todo, todo));
