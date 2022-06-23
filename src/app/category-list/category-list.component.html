@@ -1,5 +1,5 @@
 <ul class="category-list">
-  <li *ngFor="let category of categories">
+  <li *ngFor="let category of categories; trackBy: trackByCategory">
     <app-category [category]="category"></app-category>
   </li>
 </ul>

@@ -13,4 +13,6 @@ export class CategoryListComponent {
 
   constructor() {}
 
+  trackByCategory(index: number, category: Category): number { return category.id; }
+
 }

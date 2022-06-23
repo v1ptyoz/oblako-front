@@ -30,4 +30,6 @@ export class CategoryComponent {
   constructor() {
   }
 
+  trackByTodo(index: number, todo: Todo): number { return todo.id; }
+
 }

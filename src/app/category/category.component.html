@@ -2,7 +2,7 @@
 <mat-card class="category">
   <mat-card-title class="category__title">{{ category.title }}</mat-card-title>
   <mat-card-content>
-    <ng-template ngFor let-todo [ngForOf]="category.todos">
+    <ng-template ngFor let-todo [ngForOf]="category.todos" [ngForTrackBy]="trackByTodo">
       <app-todo [todo]="todo"></app-todo>
     </ng-template>
   </mat-card-content>
