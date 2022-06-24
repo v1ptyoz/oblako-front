@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormControl, Validators} from "@angular/forms";
-import {DialogData} from "../new-todo/new-todo.component";
 import {HttpClient} from "@angular/common/http";
 import {Category} from "../category/category.component";
 import {plainToClass} from "class-transformer";
+import {TodoService} from "../services/todo.service";
 
 @Component({
   selector: 'app-new-category',
@@ -12,12 +12,13 @@ import {plainToClass} from "class-transformer";
   styleUrls: ['./new-category.component.scss']
 })
 export class NewCategoryComponent {
-  title = new FormControl('', Validators.required);
-  constructor(private http: HttpClient, public addNewCategoryDialogRef:MatDialogRef<NewCategoryComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  title = new FormControl(null, Validators.required);
+  constructor(private todoService: TodoService, public modal:MatDialogRef<NewCategoryComponent>) { }
 
   addCategory() {
-    this.http.post<Category>("https://khrabrov-oblako-2.herokuapp.com/category", {title: this.title.value}).subscribe(category => {
-      this.data.categories.push(plainToClass(Category, category));
-    })
+    if(!this.title.errors) {
+      this.todoService.addCategory(this.title.value)
+      this.modal.close();
+    }
   }
 }

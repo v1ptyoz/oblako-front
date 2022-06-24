@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Category} from "../category/category.component";
+import {Category, ICategory} from "../category/category.component";
+import {TodoService} from "../services/todo.service";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -9,10 +11,10 @@ import {Category} from "../category/category.component";
 })
 
 export class CategoryListComponent {
-  @Input() categories!: Category[];
+  @Input() categories: Category[] | null = new Array<Category>;
 
-  constructor() {}
 
   trackByCategory(index: number, category: Category): number { return category.id; }
+
 
 }

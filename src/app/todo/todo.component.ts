@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Category} from "../category/category.component";
 import {HttpClient} from "@angular/common/http";
+import {TodoService} from "../services/todo.service";
 
 export interface ITodo {
   id: string;
@@ -29,11 +30,9 @@ export class Todo implements ITodo {
 export class TodoComponent {
   @Input() todo!: Todo;
 
-  constructor(private http: HttpClient) { }
+  constructor(private todoService: TodoService) { }
 
   toggleCompleted() {
-    this.todo.isCompleted = !this.todo.isCompleted;
-    const url = `https://khrabrov-oblako-2.herokuapp.com/projects/${this.todo.category_id}/todo/${this.todo.id}`
-    this.http.patch(url, {}).subscribe();
+    this.todoService.toggleTodoIsCompleted(this.todo);
   }
 }

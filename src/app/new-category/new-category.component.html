@@ -9,10 +9,15 @@
   </div>
   <div mat-dialog-actions>
     <button
+      mat-dialog-close=""
+      mat-raised-button
+    >
+      Отмена
+    </button>
+    <button
       mat-raised-button
       color="primary"
       (click)="addCategory()"
-      mat-dialog-close="submit"
     >Добавить</button>
   </div>
 </form>

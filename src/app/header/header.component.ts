@@ -1,7 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {NewTodoComponent} from "../new-todo/new-todo.component";
-import {Category} from "../category/category.component";
+import {Category, ICategory} from "../category/category.component";
+import {TodoService} from "../services/todo.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -10,15 +12,18 @@ import {Category} from "../category/category.component";
 })
 
 export class HeaderComponent {
-  @Input() categories!: Category[];
 
-  constructor(public newTodoDialogRef: MatDialog) {}
+
+  constructor(private todoService: TodoService, public newTodoDialogRef: MatDialog) {
+
+  }
 
   openDialog(): void {
     this.newTodoDialogRef.open(NewTodoComponent, {
       width: '300px',
       data: {
-        categories: this.categories
+        categories: this.todoService.categories$,
+        dialog: this.newTodoDialogRef
       }
     });
   }

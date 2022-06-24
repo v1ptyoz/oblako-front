@@ -1,15 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {NewCategoryComponent} from "../new-category/new-category.component";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Category} from "../category/category.component";
 import {HttpClient} from "@angular/common/http";
 import {Todo} from "../todo/todo.component";
 import {plainToClass} from "class-transformer";
+import {TodoService} from "../services/todo.service";
+import {Observable} from "rxjs";
 
-export interface DialogData {
-  categories: Category[]
-}
 
 @Component({
   selector: 'app-new-todo',
@@ -17,26 +16,33 @@ export interface DialogData {
   styleUrls: ['./new-todo.component.scss']
 })
 
-export class NewTodoComponent {
-  text = new FormControl('', Validators.required);
-  category = new FormControl('', Validators.required);
+export class NewTodoComponent implements OnInit{
+  categories$: Observable<Category[]>;
+  text = new FormControl(null, Validators.required);
+  category = new FormControl(null, Validators.required);
 
-  constructor(private http: HttpClient, public newCategoryDialogRef: MatDialog, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(private todoService: TodoService, public newCategoryDialogRef: MatDialog, public modal: MatDialogRef<NewTodoComponent>) {
+    this.categories$ = todoService.categories;
+  }
+
+  ngOnInit(): void {
+    this.categories$ = this.todoService.categories;
+  }
 
   openNewCategoryModal(): void {
     this.newCategoryDialogRef.open(NewCategoryComponent, {
-      width: '300px',
-      data: this.data
+      width: '300px'
     });
   }
 
   addTodo() {
-    this.http.post<Todo>("https://khrabrov-oblako-2.herokuapp.com/todos", {text: this.text.value, category_id: this.category.value}).subscribe(todo => {
-      this.data.categories.forEach(category => {
-        if (category.id === todo.category_id) {
-          category.todos.push(plainToClass(Todo, todo));
-        }
-      })
-    })
+    if(!this.text.errors && !this.category.errors) {
+      this.todoService.addTodo(this.text.value, this.category.value)
+      this.modal.close();
+    }
   }
+
+  trackByCategory(index: number, category: Category): number { return category.id; }
+
+
 }
