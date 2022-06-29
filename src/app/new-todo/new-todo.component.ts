@@ -28,7 +28,7 @@ export class NewTodoComponent implements OnInit{
 
   addTodo() {
     if(!this.text.errors && !this.category.errors) {
-      if(this.category.value === 0 ) {
+      if(this.category.value === 0 && !this.new_category_title.errors) {
         this.todoService.addTodo(this.text.value, this.category.value, this.new_category_title.value)
       } else {
         this.todoService.addTodo(this.text.value, this.category.value, '')
