@@ -11,7 +11,7 @@
       <mat-select [formControl]="category">
         <mat-option [value]="0">Создать категорию...</mat-option>
         <ng-template ngFor let-category [ngForOf]="categories$ | async" [ngForTrackBy]="trackByCategory">
-          <mat-option [value]="category.id">{{category.title}}</mat-option>
+          <mat-option [value]="category.id" (click)="new_category_title.reset()">{{category.title}}</mat-option>
         </ng-template>
       </mat-select>
     </mat-form-field>

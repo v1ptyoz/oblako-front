@@ -14,9 +14,9 @@ import {Observable} from "rxjs";
 
 export class NewTodoComponent implements OnInit{
   categories$: Observable<Category[]>;
-  text = new FormControl(null, Validators.required);
+  text = new FormControl('', Validators.required);
   category = new FormControl(null, Validators.required);
-  new_category_title = new FormControl(null, Validators.required);
+  new_category_title = new FormControl('', Validators.required);
 
   constructor(private todoService: TodoService, public newCategoryDialogRef: MatDialog, public modal: MatDialogRef<NewTodoComponent>) {
     this.categories$ = todoService.categories;
@@ -27,12 +27,13 @@ export class NewTodoComponent implements OnInit{
   }
 
   addTodo() {
-    if(!this.text.errors && !this.category.errors) {
-      if(this.category.value === 0 && !this.new_category_title.errors) {
-        this.todoService.addTodo(this.text.value, this.category.value, this.new_category_title.value)
-      } else {
-        this.todoService.addTodo(this.text.value, this.category.value, '')
+    if (this.category.value === 0) {
+      if(!this.text.errors && !this.new_category_title.errors) {
+          this.todoService.addTodo(this.text.value, this.category.value, this.new_category_title.value)
+          this.modal.close();
       }
+    } else if(!this.text.errors && !this.category.errors) {
+      this.todoService.addTodo(this.text.value, this.category.value, '')
       this.modal.close();
     }
   }
