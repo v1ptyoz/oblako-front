@@ -1,7 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Category, ICategory} from "../category/category.component";
-import {TodoService} from "../services/todo.service";
-import {Observable} from "rxjs";
+import {Component, Input} from '@angular/core';
+import {Category} from "../category/category.component";
 
 
 @Component({

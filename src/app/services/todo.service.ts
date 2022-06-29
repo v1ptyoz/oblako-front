@@ -5,7 +5,6 @@ import {Category, ICategory} from "../category/category.component";
 import {BehaviorSubject, Observable, take} from "rxjs";
 import {plainToClass} from "class-transformer";
 import {Todo} from "../todo/todo.component";
-import {response} from "express";
 
 @Injectable({
   providedIn: 'root'
@@ -38,18 +37,34 @@ export class TodoService {
     })
   }
 
-  addTodo(text: string | null, category_id: string | null) {
-    this.http.post<Todo>(environment.apiUrl + "/todos", {text: text, category_id: category_id}).subscribe(todo => {
-      const newTodo = plainToClass(Todo, todo);
-      this.categories$.pipe(take(1)).subscribe((categories) => {
-        categories.filter(category => {
-          if (category.id === newTodo.category_id) {
-            category.todos.push(newTodo);
-          }
+  addTodo(text: string | null, category_id: number | null, new_category_title: string | null) {
+    // create new category with todo and update
+    if (category_id === 0) {
+      this.http.post<Category>(environment.apiUrl + "/todos", {
+        text: text,
+        category_id: category_id,
+        new_category_title: new_category_title
+      }).subscribe(category => {
+        const newCategory = plainToClass(Category, category);
+        this.categories$.pipe(take(1)).subscribe((categories) => {
+          categories.push(newCategory);
+          this.categories.next(categories);
         })
-        this.categories.next(categories);
       })
-    })
+    } else {
+      // create new todo and update
+      this.http.post<Todo>(environment.apiUrl + "/todos", {text: text, category_id: category_id, new_category_title: new_category_title}).subscribe(todo => {
+        const newTodo = plainToClass(Todo, todo);
+        this.categories$.pipe(take(1)).subscribe((categories) => {
+          categories.filter(category => {
+            if (category.id === newTodo.category_id) {
+              category.todos.push(newTodo);
+            }
+          })
+          this.categories.next(categories);
+        })
+      })
+    }
   }
 
   addCategory(title: string | null) {

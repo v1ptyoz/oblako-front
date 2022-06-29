@@ -9,11 +9,15 @@
     <mat-form-field appearance="fill" [style.width.%]="100">
       <mat-label>Выберите категорию</mat-label>
       <mat-select [formControl]="category">
-        <mat-option (click)="openNewCategoryModal()">Создать категорию...</mat-option>
+        <mat-option [value]="0">Создать категорию...</mat-option>
         <ng-template ngFor let-category [ngForOf]="categories$ | async" [ngForTrackBy]="trackByCategory">
           <mat-option [value]="category.id">{{category.title}}</mat-option>
         </ng-template>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="category.value === 0" appearance="fill" [style.width.%]="100">
+      <mat-label>Название категории</mat-label>
+      <input matInput [formControl]="new_category_title">
     </mat-form-field>
   </div>
   <div mat-dialog-actions>

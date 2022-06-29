@@ -1,9 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {NewTodoComponent} from "../new-todo/new-todo.component";
-import {Category, ICategory} from "../category/category.component";
 import {TodoService} from "../services/todo.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-header',

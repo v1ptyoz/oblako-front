@@ -1,6 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {Category} from "../category/category.component";
-import {HttpClient} from "@angular/common/http";
 import {TodoService} from "../services/todo.service";
 
 export interface ITodo {
